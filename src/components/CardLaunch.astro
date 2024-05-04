@@ -1,0 +1,61 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  cover: string;
+  cover_small: string;
+  cover_medium: string;
+  cover_big: string;
+  cover_xl: string;
+  md5_image: string;
+  genre_id: number;
+  release_date: Date;
+  tracklist: string;
+  explicit_lyrics: boolean;
+}
+const {
+  id,
+  title,
+  cover,
+  cover_small,
+  cover_medium,
+  cover_big,
+  cover_xl,
+  md5_image,
+  genre_id,
+  release_date,
+  tracklist,
+  explicit_lyrics,
+} = Astro.props;
+const albumStatus = explicit_lyrics ? "Explicit lyrics" : "";
+---
+
+<a
+  href={`/album/${title}`}
+  class="rounded-lg shadow-md hover:scale-105 hover:bg-[#eb7858] hover:border-gray-500 transition flex flex-col"
+>
+  <picture class="flex justify-center p-4">
+    <img
+      class="mb-5 rounded-lg"
+      src={cover_big}
+      alt={`Patch for launch ${id}`}
+    />
+  </picture>
+
+  <header class="p-4 flex-grow">
+    <span
+      class:list={[
+        "text-xs font-semibold mr-2 px-2.5 py-0.5 rounded",
+        {
+          "bg-black  text-white": explicit_lyrics,
+          "text-white": !explicit_lyrics,
+        },
+      ]}>{albumStatus}</span
+    >
+    <h2 class="my-2 text-2xl font-bold tracking-tight text-black">
+      {title}
+    </h2>
+
+    <p class="mb-4 font-light text-black">({release_date})</p>
+  </header>
+</a>

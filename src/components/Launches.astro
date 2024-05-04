@@ -1,0 +1,28 @@
+---
+import CardLaunch from "./CardLaunch.astro";
+import { getIdlesAlbums } from "../services/idlesband";
+
+const albums = await getIdlesAlbums()
+---
+
+<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+{
+  albums.map((album) => (
+    <CardLaunch
+      id={album.id}
+      title={album.title}
+      release_date={album.release_date}
+      cover={album.cover}
+      genre_id={album.genre_id}
+      tracklist={album.tracklist}
+      cover_small={album.cover_small}
+      cover_medium={album.cover_medium}
+      cover_big={album.cover_big}
+      cover_xl={album.cover_xl}
+      md5_image={album.md5_image}
+      explicit_lyrics={album.explicit_lyrics}
+    />
+  ))
+
+}
+</div>

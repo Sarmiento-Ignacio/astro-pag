@@ -1,0 +1,18 @@
+---
+import { getAlbumby } from "../../services/idlesband";
+
+const { id } = Astro.params
+
+console.log({ id })
+
+let album;
+
+if (id) {
+  album = await getAlbumby({ id });
+}
+
+console.log(album);
+---
+<article>
+  {album?.id}
+</article>
