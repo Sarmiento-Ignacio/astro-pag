@@ -1,0 +1,42 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getAlbumById, getIdlesAlbums } from "../../services/idlesband";
+import Layout from "../../layouts/Layout.astro";
+
+
+export const  prerender = false
+const { id } = Astro.params;
+
+console.log({ id });
+
+let album;
+if (id) {
+  album = await getAlbumById({ id });
+}
+export  async function getStaticPaths() {
+
+
+  const Albums = await getIdlesAlbums()
+
+
+  return Albums.map(album =>({
+    params: { id: album.id}
+  }))
+
+}
+
+---
+<Layout title={`Album ${id}`}>
+  <article class="flex gap-y-4 flex-col float-left">
+    <img class=" h-auto"
+    src={album.cover_xl}
+    alt={album.title}
+    />
+    <h2 class="text-4xl text-black font-bold">
+      Album {album.title}
+    </h2>
+    <p class="text-lg">({album.release_date})</p>
+    <p class="text-lg"> {album.tracklist}</p>
+  </article>
+
+</Layout>
